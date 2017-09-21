@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 from home.forms import HomeForm
 from home.models import Post, Friend
+from business.models import B2cProfile
 
 class HomeView(TemplateView):
     template_name = 'home/home.html'
@@ -17,9 +18,9 @@ class HomeView(TemplateView):
         users = User.objects.exclude(id=request.user.id)
         friend = Friend.objects.get(current_user=request.user)
         friends = friend.users.all()
-
+        
         args = {
-            'form': form, 'posts': posts, 'users': users, 'friends': friends
+            'form': form, 'posts': posts, 'users': users, 'friends': friends, 
         }
         return render(request, self.template_name, args)
 

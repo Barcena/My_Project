@@ -13,10 +13,13 @@ from django.db.models.signals import post_save
 
 class B2cProfile(models.Model):
 	user = models.OneToOneField(User)
+	business_name = models.CharField(max_length=100,default='')
 	description = models.CharField(max_length=100, default='')
 	city = models.CharField(max_length=100,default='')
 	website = models.URLField(default='')
 	phone = models.IntegerField(default=0)
+	apertura = models.CharField(max_length=100, default='')
+	cierre = models.CharField(max_length=100, default='')
 	#image = models.ImageField(upload_to= 'profile_image', blank = True)
 
 	#CDMX=UserProfileManager()

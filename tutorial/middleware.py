@@ -32,3 +32,5 @@ class LoginRequiredMiddleware:
             return None
         else:
             return redirect(settings.LOGIN_URL)
+
+    

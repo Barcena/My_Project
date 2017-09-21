@@ -7,12 +7,15 @@
 {% block  body %}
 <div class ="container">
 	<h1>Profile</h1>
+	{% if user.userprofile.image %}
+	<img src="{{ user.userprofile.image }}" width="240"
 	>
 	{% endif %}
 	<p>Username: {{ user }}</p>
+	<p> 2: {{ business.b2cprofile.user }}</p>
 	<p>{{user.first_name}}
 		{{ user.last_name}}</p>
-	<p>Email: {{ user.email}}</p>
+	<p>Email: {{ user.email }}</p>
 	<p>Description : {{ user.userprofile.description }}</p>	
 	<p>Contacto : {{ user.userprofile.phone }}</p>
 	<p>City : {{ user.userprofile.city }}</p>

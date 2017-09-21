@@ -1,40 +1,43 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import B2cProfile
 
-
-class RegistrationForm(UserCreationForm):
+class B2cRegisterForm(forms.ModelForm):
 	email=forms.EmailField(required=True)
 
 	class Meta: 
-		model = User
+		model = B2cProfile
 		fields = (
-			'username',
+			
 			'business_name',
-			'last_name',
+			'description',
+			'phone',
 			'email',
-			'password1',
-			'password2'
+			'apertura',
+			'cierre'
 		)
 
 	def save(self, commit=True):#save in database
-		 user = super(RegistrationForm,self).save(commit=False)
-		 user.first_name = self.cleaned_data['first_name']
-		 user.last_name = self.cleaned_data['last_name']
-		 user.email = self.cleaned_data['email']
-
+		 b2c = super(B2cRegisterForm,self).save(commit=False)
+		 
+		 b2c.business_name = self.cleaned_data['business_name']
+		 b2c.description = self.cleaned_data['description']
+		 b2c.phone = self.cleaned_data['phone']
+		 b2c.email = self.cleaned_data['email']
+		 b2c.cierre = self.cleaned_data['cierre']
+		 b2c.apertura = self.cleaned_data['apertura']
 		 if commit:
-		 	user.save()
+		 	b2c.save()
 
-		 return user
+		 return b2c
 
-class EditProfileForm(UserChangeForm):
+class EditB2cProfileForm(UserChangeForm):
 	
 	class Meta: # exlude fields in a model
-		model = User
+		model = B2cProfile
 		fields = (
-			'email',
-			'first_name',
-			'last_name',
-			'password'
+			'description',
+			'business_name',
+			'phone',
 			)
