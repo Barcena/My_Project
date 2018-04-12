@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from accounts.forms import (
 	RegistrationForm, 
 	EditProfileForm
@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from .forms import B2cRegisterForm
 # Create your views here.
 # here comes all de logic 
 '''def home (request):
@@ -25,24 +26,24 @@ from django.contrib.auth.decorators import login_required
 
 def register(request):
 	if request.method=='POST': #POST method means user is sendding data to webbserver
-		form = RegistrationForm(request.POST)
+		form = B2cRegisterForm(request.POST)
 		if form.is_valid():
 			form.save() #creates the user in the database, saves information
 			return redirect('home:home')
 	else:
-		form=RegistrationForm()
+		form=B2cRegisterForm()
 
 		args = {'form':form} 
-		return render(request, 'accounts/reg_form.html', args)
+		return render(request, 'business/reg_b2c.html', args)
 
  #decorator
 def view_b2c_profile(request, pk=None):
     if pk:
-        user = User.objects.get(pk=pk)
+        business = User.objects.get(pk=pk)
     else:
-        user = request.user
-    args = {'user': user}
-    return render(request, 'business/profile.html', args)
+        business = request.user
+    args = {'business': business}
+    return render(request, 'business/b2c_profile.html', args)
 
 def edit_b2c_profile(request):
     if request.method == 'POST':
@@ -56,20 +57,5 @@ def edit_b2c_profile(request):
         args = {'form': form}
         return render(request, 'accounts/edit_profile.html', args)
 
-def change_b2c_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(data=request.POST, user=request.user)
-
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            return redirect(reverse('accounts:view_profile'))
-        else:
-            return redirect(reverse('accounts:change_password'))
-    else:
-        form = PasswordChangeForm(user=request.user)
-
-        args = {'form': form}
-        return render(request, 'accounts/change_password.html', args)
 
 

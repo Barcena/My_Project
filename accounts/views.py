@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from accounts.forms import (
 	RegistrationForm, 
 	EditProfileForm

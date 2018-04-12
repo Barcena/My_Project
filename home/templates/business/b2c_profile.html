@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+{% block  body %}
+<div class ="container">
+
+	<h1>Name: {{ business.b2cprofile.business_name }}</h1>
+	
+	<p>Owner: {{ user}}</p>
+	
+	<p>{{ business.b2cprofile.description }}</p>
+	<p>Contacto: {{ business.b2cprofile.website}}</p>
+	<p> Sitio : {{ business.b2cprofile.phone }}</p>	
+	<p>Location : {{ business.b2cprofile.city }}</p>
+		<p>{{ business.b2cprofile.apertura }}
+		{{ business.b2cprofile.cierre }}</p>
+	</p>
+</div>
+{% endblock %}

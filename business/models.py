@@ -12,23 +12,21 @@ from django.db.models.signals import post_save
 		return super(UserProfileManager, self).get_queryset().filter(city='CDMX')'''
 
 class B2cProfile(models.Model):
-	user = models.OneToOneField(User)
+
+	b2c_business = models.OneToOneField(User,on_delete=models.CASCADE)
+	business_name = models.CharField(max_length=100,default='')
 	description = models.CharField(max_length=100, default='')
-	city = models.CharField(max_length=100,default='')
+	direction = models.CharField(max_length=100, default='')
 	website = models.URLField(default='')
 	phone = models.IntegerField(default=0)
+	apertura = models.CharField(max_length=100, default='')
+	cierre = models.CharField(max_length=100, default='')
 	#image = models.ImageField(upload_to= 'profile_image', blank = True)
 
 	#CDMX=UserProfileManager()
 
-	def __str__(self):
-		return self.user.username
+	
 
 
-def create_b2c_profile(sender,**kwargs):
-	if kwargs['created']:
-		buisness_profile = B2cProfile.objects.create(user=kwargs['instance'])
-
-post_save.connect(create_b2c_profile, sender=User)
 
 
