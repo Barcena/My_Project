@@ -30,3 +30,9 @@ class Friend(models.Model):
             current_user=current_user
         )
         friend.users.remove(new_friend)
+
+
+class Company(models.Model):
+    name = models.CharField(max_length=20)
+    amount = models.IntegerField()
+    duration = models.IntegerField()
