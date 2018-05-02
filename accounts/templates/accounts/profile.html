@@ -1,24 +1,24 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block head %}
 <title>Profile</title>
 {% endblock %}
 
 {% block  body %}
+<br>
+
 <div class ="container">
 	<h1>Profile</h1>
 	{% if user.userprofile.image %}
-	<img src="{{ user.userprofile.image }}" width="240"
-	>
+	<img src="{{ user.userprofile.image }}" width="240">
 	{% endif %}
 	<p>Username: {{ user }}</p>
 	<p>{{user.first_name}}
 		{{ user.last_name}}</p>
 	<p>Email: {{ user.email}}</p>
-	<p>Description : {{ user.b2cprofile.business_name }}</p>	
+	<p>Description : {{ user.b2cprofile.business_name }}</p>
 	<p>Contacto : {{ user.phone }}</p>
 	<p>City : {{ user.userprofile.city }}</p>
-
-	</p>
+	<a href="{% url 'accounts:edit_profile' %}"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Editar Perfil</button></a>
 </div>
 {% endblock %}
