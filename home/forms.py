@@ -1,29 +1,25 @@
-
 from django import forms
-from home.models import Post
 from home.models import Company
 
-class HomeForm(forms.ModelForm):
-    post = forms.CharField(widget = forms.TextInput(
-    	attrs={
-    		'class':'form-control',
-    		'placeholder':'Write a post ... '
-    	}
 
-    	))
-
-
-    class Meta:
-        model = Post
-        fields = ('post',)
 
 class CompanyForm(forms.ModelForm):
-    post = forms.CharField(widget = forms.TextInput(
-        attrs={
-    		'class':'form-control',
-    		'placeholder':'Write a post ... '
-    	}
-    ))
-    class Meta:
+
+    class Meta: 
         model = Company
-        fields = ('post',)
+        fields = (
+            'facebook_name',
+            'amount',
+            'duration',
+     
+        )
+    def save(self, commit=True):#save in database
+         company = super(CompanyForm,self).save(commit=False)
+         company.amount = self.cleaned_data['amount']
+         company.duration = self.cleaned_data['duration']
+         
+
+         if commit:
+            company.save()
+
+         return company

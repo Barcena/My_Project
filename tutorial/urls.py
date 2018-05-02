@@ -24,5 +24,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^home/', include('home.urls', namespace='home')),
-    url(r'^business/', include('business.urls', namespace='business')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

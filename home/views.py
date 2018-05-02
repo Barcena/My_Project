@@ -4,49 +4,64 @@ from __future__ import unicode_literals
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework.response  import Response
 
-from home.forms import HomeForm
-from home.models import Post, Friend
+from home.forms import CompanyForm
+from .models import Company
+from .serializers import CompanySerializer
 
-class HomeView(TemplateView):
-    template_name = 'home/home.html'
+def register(request):
+    if request.method=='POST': #POST method means user is sendding data to webbserver
+            form = CompanyForm(request.POST)
+            if form.is_valid():
+                form.save() #creates the user in the database, saves information
+                return redirect('home:home')
+    else:
+            form=CompanyForm()
 
+            args = {'form':form} 
+            return render(request, 'home/home.html' , args)
+
+class CompanyListView(APIView):
     def get(self, request):
-        form = HomeForm()
-        posts = Post.objects.all().order_by('-created')
-        users = User.objects.exclude(id=request.user.id)
-        friend, created = Friend.objects.get_or_create(current_user=request.user)
-        friends = friend.users.all()
+        info = Company.objects.all()
+        serializer = CompanySerializer(info, many=True)
 
-        args = {
-            'form': form, 'posts': posts, 'users': users, 'friends': friends
-        }
-        return render(request, self.template_name, args)
+        return Response(serializer.data)
 
-    def post(self, request):
-        form = HomeForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
+    def put(self, request):
+        serializer = CompanySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            text = form.cleaned_data['post']
-            form = HomeForm()
-            return redirect('home:home')
+class CompanyDetail(APIView):
 
-        args = {'form': form, 'text': text}
-        return render(request, self.template_name, args)
+    def get_object(self, pk):
+        try:
+            return Company.objects.get(pk=pk)
+        except Company.DoesNotExist:
+            raise Http404
 
-def change_friends(request, operation, pk):
-    friend = User.objects.get(pk=pk)
-    if operation == 'add':
-        Friend.make_friend(request.user, friend)
-    elif operation == 'remove':
-        Friend.lose_friend(request.user, friend)
-    return redirect('home:home')
+    def get(self, request, pk, format=None):
+        company = self.get_object(pk)
+        serializer = CompanySerializer(company)
+        return Response(serializer.data)
 
+    def put(self, request, pk, format=None):
+        company = self.get_object(pk)
+        serializer = CompanySerializer(company, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+    def delete(self, request, pk, format=None):
+        company = self.get_object(pk)
+        company.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)   
 
 
 
