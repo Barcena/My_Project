@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -63,5 +60,8 @@ class CompanyDetail(APIView):
         company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)   
 
-
+def view_company(request, pk=None):
+    company = Company.objects.all()
+    args = {'company': company }
+    return render(request, 'simulator/simulator.html', args)
 
