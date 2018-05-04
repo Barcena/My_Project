@@ -1,7 +1,15 @@
 {% extends  'base.html' %}
 
 {% block body %}
-<div class="container">
+
+
+
+<!-- Form Name -->
+
+
+<div class="d-flex justify-content-center">
+	
+	<fieldset>
 	<h1>Welcome</h1>
 	<p>
 		You can login here
@@ -10,7 +18,8 @@
 	<form method="post">
 		 {% csrf_token %} 			<!-- crear un tolken para que sea seguro hacer el login en la pagina es obligatorio-->
 		 {{form.as_p}}
-		 <button type="submit" class="btn btn-info">Login</button>
+		 <button type="submit" class="btn btn-primary">Login</button>
 	</form>
+	</fieldset>
 </div>
 	{% endblock %}

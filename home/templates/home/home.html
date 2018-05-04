@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+{% if user.is_authenticated %}
     <div class="container">
         <div class="text-center col-sm-12">
             <h1>Bienvenid@</h1>
@@ -21,9 +22,11 @@
             <form method="post">
                 {% csrf_token%} <!-- makes sendding data more secure-->
                  {{ form.as_p }}   <!-- export form from django-->
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary" href="{% url 'accounts:login' %}" >Submit</button>
             </form>
         </div>
     </div>
 </div>
-{% endblock %}
+
+{% endif %}
+{% endblock%}
