@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block head %}
@@ -10,7 +11,7 @@
     <body>
       <nav class="navbar navbar-light navbar-expand-lg navbar-muted bg-white sticky-top">
 
-        <a class="navbar-brand text-muted" href="{% url 'home:home' %}" style="margin-left: 110px"> CreditScore</a>
+        <a class="navbar-brand text-muted" href="{% url 'home:home' %}" style="margin-left: 110px"><i class="fas fa-credit-card"></i> CreditScore</a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon my-toggler"></span>
           </button>
@@ -22,7 +23,7 @@
                 <a class="nav-link text-muted" href="{% url 'accounts:view_profile' %}">{{ user.first_name}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-muted" href="{% url 'home:view_company' %}">Simulador</a>
+                <a class="nav-link text-muted" href="{% url 'home:view_company' %}"><i class="fas fa-tachometer-alt"></i> Simulador</a>
               </li>
               <li class="nav-item dropdown text-muted">
                 <a class="nav-link dropdown-toggle text-muted" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 80px">
@@ -30,10 +31,10 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
 
-                <a class="dropdown-item text-muted"  href="{% url 'accounts:edit_profile' %}">Edit</a>
+                <a class="dropdown-item text-muted"  href="{% url 'accounts:edit_profile' %}"><i class="fas fa-edit"></i> Edit </a>
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item text-muted" href="{% url 'accounts:logout' %}">Logout</a>
+                <a class="dropdown-item text-muted" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout </a>
               </li>
             </ul>
           </div>
