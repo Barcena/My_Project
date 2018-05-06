@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Results</title>
+{% endblock %}
+
+{% block  body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        {% if company_list %}
+            <ul>
+              {% for company in company_list %}
+              <li>
+                {{company.facebook_name}}
+              </li>
+              {% endfor %}
+            </ul>
+        {% else %}
+          <p>There are no books in the library.</p>
+        {% endif %}
+        </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,9 +1,9 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.response  import Response
-
+import datetime
 from home.forms import CompanyForm
 from .models import Company
 from .serializers import CompanySerializer
@@ -17,22 +17,19 @@ def register(request):
     else:
             form=CompanyForm()
 
-            args = {'form':form} 
+            args = {'form':form}
             return render(request, 'home/home.html' , args)
 
-class CompanyListView(APIView):
-    def get(self, request):
-        info = Company.objects.all()
-        serializer = CompanySerializer(info, many=True)
+class CompanyListView(ListView):
+    model = Company
+    paginate_by = 10  # if pagination is desired
 
-        return Response(serializer.data)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = datetime.datetime.now()
+        return context
 
-    def put(self, request):
-        serializer = CompanySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CompanyDetail(APIView):
 
@@ -58,10 +55,9 @@ class CompanyDetail(APIView):
     def delete(self, request, pk, format=None):
         company = self.get_object(pk)
         company.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)   
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 def view_company(request, pk=None):
     company = Company.objects.all()
     args = {'company': company }
     return render(request, 'simulator/simulator.html', args)
-
