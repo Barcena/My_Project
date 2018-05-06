@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from .utils import predict_model
 from django.db.models.signals import pre_save, post_save
 import urllib
-import requests
 import datetime
 
 # Create your models here

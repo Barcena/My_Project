@@ -6,7 +6,7 @@ from accounts.forms import (
 ) #Django user creation form
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 # here comes all de logic 
@@ -21,16 +21,26 @@ from django.contrib.auth.decorators import login_required
 	return render(request,'accounts/home.html', args)'''
 
 def register(request):
-	if request.method=='POST': #POST method means user is sendding data to webbserver
-		form = RegistrationForm(request.POST)
-		if form.is_valid():
-			form.save() #creates the user in the database, saves information
-			return redirect('home:home')
-	else:
-		form=RegistrationForm()
+    if request.method =='POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = request.POST.get('username')
+            password = request.POST.get('password1')
 
-		args = {'form':form} 
-		return render(request, 'accounts/reg_form.html', args)
+            user = authenticate(
+                username=username,
+                password=password
+            )
+            login(request,user)
+
+
+            return redirect(reverse('home:home'))
+    else:
+        form = RegistrationForm()
+
+    args = {'form': form}
+    return render(request, 'accounts/reg_form.html', args)
 
  #decorator
 def view_profile(request, pk=None):
