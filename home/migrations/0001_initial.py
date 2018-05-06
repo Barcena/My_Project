@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
                 ('facebook_name', models.CharField(max_length=20)),
                 ('amount', models.IntegerField()),
                 ('duration', models.IntegerField()),
+                ('inflation', models.FloatField()),
                 ('result', models.IntegerField(default='')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
