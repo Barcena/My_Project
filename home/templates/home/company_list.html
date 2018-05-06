@@ -7,15 +7,36 @@
 {% block  body %}
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12" style="margin-top:2rem;">
         {% if company_list %}
-            <ul>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Duración (meses)</th>
+                <th scope="col">Interes</th>
+                <th scope="col">Aceptado</th>
+              </tr>
+            </thead>
+            <tbody>
               {% for company in company_list %}
-              <li>
-                {{company.facebook_name}}
-              </li>
+                <tr>
+                  <td>{{company.facebook_name}}</td>
+                  <td>$ {{company.amount}}</td>
+                  <td>{{company.duration}}</td>
+                  <td>{{company.inflation}} %</td>
+                  <td>
+                    {% if company.inflation %}
+                      <p>Si</p>
+                    {% else %}
+                      <p>No</p>
+                    {% endif %}
+                  </td>
+                </tr>
               {% endfor %}
-            </ul>
+            </tbody>
+          </table>
         {% else %}
           <p>There are no books in the library.</p>
         {% endif %}

@@ -27,6 +27,7 @@ def rl_pre_save_receiver(sender, instance, *args, **kwargs):
             'format': 'true'
         }
         res = requests.get('https://www.statbureau.org/calculate-inflation-rate-json?', inflation_params)
-        instance.inflation = res.text[1:-1]
+        instance.inflation = float(res.text[1:-1])
+        instance.inflation = instance.inflation + ((instance.duration/100) * instance.inflation)
         instance.result = predict_model(instance)
 pre_save.connect(rl_pre_save_receiver, sender=Company)
