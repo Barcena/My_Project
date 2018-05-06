@@ -27,6 +27,7 @@ class RegistrationForm(UserCreationForm):
 		 	user.save()
 
 		 return user
+		 	
 
 class EditProfileForm(UserChangeForm):
 	

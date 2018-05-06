@@ -13,12 +13,13 @@ def register(request):
             form = CompanyForm(request.POST)
             if form.is_valid():
                 form.save() #creates the user in the database, saves information
-                return redirect('home:home')
+                return redirect('home:res')
     else:
             form=CompanyForm()
 
             args = {'form':form}
             return render(request, 'home/home.html' , args)
+
 
 class CompanyListView(ListView):
     model = Company
