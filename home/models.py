@@ -19,14 +19,14 @@ class Company(models.Model):
 def rl_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.result:
         today = datetime.datetime.now()
-        start = today - datetime.timedelta(days=365)
+        start = today - datetime.timedelta(days=3*365)
         inflation_params = {
             'country': 'mexico',
             'start': start.strftime("%d/%m/%Y"),
             'end': today.strftime("%d/%m/%Y"),
             'format': 'true'
         }
-        res = requests.post('https://www.statbureau.org/calculate-inflation-rate-json?', inflation_params)
+        res = requests.get('https://www.statbureau.org/calculate-inflation-rate-json?', inflation_params)
         instance.inflation = res.text[1:-1]
         instance.result = predict_model(instance)
 pre_save.connect(rl_pre_save_receiver, sender=Company)

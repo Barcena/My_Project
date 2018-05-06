@@ -2,12 +2,17 @@
 
 {% block body %}
 
-<div class="container">
-	<h1>Register</h1>
-	<form method="post">
-		{% csrf_token%} <!-- makes sendding data more secure-->
-		{{ form.as_p }} <!-- export form from django-->
-		<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Submit</button>
-	</form>
+<div class="d-flex justify-content-center">
+	<fieldset>
+		<br>
+		<h1 class="text-center">Register</h1>
+		<br>
+		<form method="post">
+			{% csrf_token%} <!-- makes sendding data more secure-->
+			{{ form.as_p }} <!-- export form from django-->
+			<button type="submit" class="btn btn-primary center-block">Submit <i class="fas fa-plus-circle"></i></button>
+		</form>
+	</fieldset>
+
 </div>
 {% endblock %}

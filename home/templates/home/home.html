@@ -16,15 +16,46 @@
                 <li>La cantidad de tiempo (en meses) en que pagrás de vuelta</li>
                 <li>Acceso a la cuenta de Facebook de tu compañía</li>
             </ul>
-
-            <div class="container">
             <h3>Pide tu credito ahora</h3>
             <form method="post">
+              <fieldset>
                 {% csrf_token%} <!-- makes sendding data more secure-->
-                 {{ form.as_p }}   <!-- export form from django-->
-                <button type="submit" class="btn btn-primary" href="{% url 'accounts:login' %}" >Submit</button>
+
+
+                <div class="d-flex justify-content-center">
+                <form method="post">
+                  <fieldset>
+                    <div class="form-row">
+                      <div class="col">
+                        <label>Nombre de la Compañía</label>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Nombre de la empresa que pide el préstamo">
+                          <i class="fas fa-info-circle"></i>
+                        </span>
+                        {{form.facebook_name}}
+                      </div>
+                      <div class="col">
+                        <label>Cantidad del prestamo </label>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Cantidad monetaria total del préstamo en MXN">
+                          <i class="fas fa-info-circle"></i>
+                        </span>
+                        {{form.amount}}
+                      </div>
+                      <div class="col">
+                        <label>Duración</label>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Tiempo en meses para pagar el préstamo">
+                          <i class="fas fa-info-circle"></i>
+                        </span> <br>
+                        {{form.duration}}
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" href="{% url 'accounts:login' %}" style="display:block;margin:1rem auto;">Submit</button>
+                  </fieldset>
+                </form>
+                </div>
+
+              </fieldset>
             </form>
-        </div>
     </div>
 </div>
 
