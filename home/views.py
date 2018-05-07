@@ -24,6 +24,7 @@ def register(request):
 class CompanyListView(ListView):
     model = Company
     paginate_by = 10  # if pagination is desired
+    context_object_name = "company_list"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

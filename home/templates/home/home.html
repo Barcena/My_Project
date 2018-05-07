@@ -10,12 +10,28 @@
         <div class="text-center col-sm-12">
             <h1>Bienvenid@</h1>
             <p>En esta página podras averigurar si eres elegible para un crédito</p>
-            <h5>¿Qué necesito?</h5>
-            <ul style="list-style-type:none;">
-                <li>Cantidad total del préstamo (en pesos mexicanos)</li>
-                <li>La cantidad de tiempo (en meses) en que pagrás de vuelta</li>
-                <li>Acceso a la cuenta de Facebook de tu compañía</li>
-            </ul>
+            <div id="accordion" style="margin: 2rem;">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="far fa-question-circle"></i> ¿Qué necesito para pedir el crédito? <i class="far fa-question-circle"></i>
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    <ul style="list-style-type:none;">
+                        <li>Cantidad total del préstamo (en pesos mexicanos)</li>
+                        <li>La cantidad de tiempo (en meses) en que pagrás de vuelta</li>
+                        <li>Acceso a la cuenta de Facebook de tu compañía</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
             <h3>Pide tu credito ahora</h3>
             <form method="post">
               <fieldset>
